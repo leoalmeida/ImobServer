@@ -37,7 +37,7 @@ var Publish = new Schema({
 var Entity = new Schema({
     id: { type: String, required: true },    
     is_published: { type: Boolean, default: false },
-    cliente: { type: String, required: true },
+    value: { type: String, required: true },
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
     synced: { type: Date, default: Date.now }
@@ -72,12 +72,14 @@ User.methods.comparePassword = function(password, cb) {
 //Define Models
 var userModel = mongoose.model('User', User);
 var pubModel = mongoose.model('Publish', Publish);
-var clientesModel = mongoose.model('Clientes', Entity);
-var imoveisModel = mongoose.model('Imoveis', Entity);
-var contratosModel = mongoose.model('Contratos', Entity);
-var eventosModel = mongoose.model('Eventos', Entity);
+var docModel = mongoose.model('Documents', Entity);
+//var clientesModel = mongoose.model('Entity', Entity);
+//var imoveisModel = mongoose.model('Entity', Entity);
+//var contratosModel = mongoose.model('Entity', Entity);
+//var eventosModel = mongoose.model('Entity', Entity);
 
 
 // Export Models
 exports.userModel = userModel;
 exports.pubModel = pubModel;
+exports.docModel = docModel;

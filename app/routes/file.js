@@ -5,6 +5,6 @@ var jwt = require('express-jwt')
 module.exports = function(app){    
   var file = app.controllers.file;
   
-  app.post('/syncs/docUpload', jwt({secret: secret.secretToken}), tokenManager.verifyToken, file.sendItem);
+  app.post('/apis/docFile', jwt({secret: secret.secretToken}), tokenManager.verifyToken, file.sendItem);
     
 };
