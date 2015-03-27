@@ -50,6 +50,8 @@ module.exports = function(app){
           data.content = docEntry;          		
           res.send(docEntry).end("File uploaded.");        
       }
+      
+      getItem: 
   ]};
   return FilesController;  
 };  

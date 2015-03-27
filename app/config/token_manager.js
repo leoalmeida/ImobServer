@@ -8,11 +8,12 @@ exports.verifyToken = function (req, res, next) {
 
 	redisClient.get(token, function (err, reply) {
 		if (err) {
-			console.log(err);
+			console.log("err:" + err);
 			return res.send(500);
 		}
 
 		if (reply) {
+		  console.log("reply:" + reply);
 			res.send(401);
 		}
 		else {
