@@ -38,6 +38,7 @@ module.exports = function(app){
           docEntry.id = req.files.file.name;
           docEntry.is_published = true;
           docEntry.value = upfile;
+          docEntry.tags = req.tags;
           docEntry.save(function(err) {
             if (err) {
               console.log(err);
