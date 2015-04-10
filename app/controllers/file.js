@@ -14,9 +14,10 @@ module.exports = function(app){
             console.log("Rename");
             return fieldname + filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
           },
-          onFileUploadStart: function (file) {
+          onFileUploadStart: function (file, req, res) {
             console.log("Start Upload call");                
-            console.log(file.originalname + ' is starting ...');                
+            console.log(file.originalname + ' is starting ...');    
+            console.log(' Request: ' +  req);    
           },
           onFileUploadComplete: function (file) {
             console.log(file.fieldname + ' uploaded to  ' + file.path);            
