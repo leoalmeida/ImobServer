@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt-nodejs");
 // User schema
-var User = new Schema({
+var UserSchema = new Schema({
    name: { type: String, default: '' },
    email: { type: String, default: '' },
    displayName: { type: String, default: '' },
@@ -13,10 +13,10 @@ var User = new Schema({
    salt: { type: String, default: '' },
    authToken: { type: String, default: '' },
    profile_pic: {type: String, default: 'blank-profile.png'},
-   created: { type: Date, default: Date.now }
+   created: { type: Date, default: Date.now },
    local:{
-	   email: String,
-	   password: String
+       email: String,
+       password: String
    }
 });
 
