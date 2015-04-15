@@ -1,6 +1,7 @@
 var multer  = require('multer')
     , db = require('../config/mongo_database')
-    , config = require('../environment.js');  
+    , config = require('../environment.js')
+    , fs = require('fs');
     
 module.exports = function(app){  
   
@@ -27,6 +28,9 @@ module.exports = function(app){
       console.log("Start sendItem");          
           console.log(req.files) // form files
           
+          console.log(' Body: ' +  JSON.stringify(req.body));
+          console.log(' Request: ' +  JSON.stringify(req.body.tags)); 
+          
           var upfile = JSON.stringify(req.files);
           
           if (upfile == null) {
@@ -52,8 +56,14 @@ module.exports = function(app){
           data.content = docEntry;          		
           res.send(docEntry).end("File uploaded.");        
       }
-      
-      getItem: 
-  ]};
+  ],
+  getItem: function(fileid) {
+      fs.readFile(config.env.upPath + fileid,  'base64', function(err,data) {
+          if (err) {
+            return console.log(err);
+          }
+          console.log(data);      
+      });
+  }};
   return FilesController;  
 };  
