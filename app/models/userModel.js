@@ -1,0 +1,112 @@
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var bcrypt = require("bcrypt-nodejs");
+// User schema
+var User = new Schema({
+   name: { type: String, default: '' },
+   email: { type: String, default: '' },
+   displayName: { type: String, default: '' },
+   username: { type: String, required: true, unique: true },
+   provider: { type: String, default: '' },
+   is_admin: { type: Boolean, default: false },
+   hashed_password: { type: String, required: true },
+   salt: { type: String, default: '' },
+   authToken: { type: String, default: '' },
+   profile_pic: {type: String, default: 'blank-profile.png'},
+   created: { type: Date, default: Date.now }
+   local:{
+	   email: String,
+	   password: String
+   }
+});
+
+UserSchema.virtual('password').set(function(password) {
+   this._password = password;
+   this.salt = this.makeSalt();
+   this.hashed_password = this.encryptPassword(password);
+    }).get(function() { return this._password });
+
+var validatePresenceOf = function (value) {
+   return value && value.length;
+};
+
+/* methods */
+UserSchema.methods = {
+  //generating a hash
+  generateHash: function(password) {
+	  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+  },
+  // checking if password is valid
+  comparePassword: function(password) {
+	  return bcrypt.compareSync(password, this.local.password);
+  },
+  /**
+   * Authenticate - check if the passwords are the same
+   *
+   * @param {String} plainText
+   * @return {Boolean}
+   * @api public
+   */
+  authenticate: function (plainText) {
+    return this.encryptPassword(plainText) === this.hashed_password;
+  },
+  /**
+   * Make salt
+   *
+   * @return {String}
+   * @api public
+   */
+
+  makeSalt: function () {
+    return Math.round((new Date().valueOf() * Math.random())) + '';
+  },
+
+  /**
+   * Encrypt password
+   *
+   * @param {String} password
+   * @return {String}
+   * @api public
+   */
+
+  encryptPassword: function (password) {
+    if (!password) return '';
+    var encrypred;
+    try {
+      encrypred = crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+      return encrypred;
+    } catch (err) {
+      return '';
+    }
+  },
+
+  /**
+   * Validation is not required if using OAuth
+   */
+  /*
+  skipValidation: function() {
+    return ~oAuthTypes.indexOf(this.provider);
+  }*/
+};
+
+
+/* statics */
+UserSchema.statics = {
+
+  /**
+   * Load
+   *
+   * @param {Object} options
+   * @param {Function} cb
+   * @api private
+   */
+
+  load: function (options, cb) {
+    options.select = options.select || 'name username';
+    this.findOne(options.criteria)
+      .select(options.select)
+      .exec(cb);
+  }
+}
+
+mongoose.model('User', UserSchema);
