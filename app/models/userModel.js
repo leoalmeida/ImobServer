@@ -20,6 +20,22 @@ var UserSchema = new Schema({
    }
 });
 
+// Bcrypt middleware on UserSchema
+/*UserSchema.pre('save', function(next) {
+  var user = this;
+
+  if (!user.isModified('password')) return next();
+
+  bcrypt.genSalt(config.env.SALT_WORK_FACTOR, function(err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, function(err, hash) {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+    });
+});
+*/
 UserSchema.virtual('password').set(function(password) {
    this._password = password;
    this.salt = this.makeSalt();
