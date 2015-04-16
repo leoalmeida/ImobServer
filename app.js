@@ -3,12 +3,12 @@ var fs  = require('fs')
     , path = require('path')
     , load = require('express-load')
     , jwt = require('express-jwt')
-    , ejsRender = require('ejs')
+    //, ejsRender = require('ejs')
     , logger   = require('morgan')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')    
     
-    , flash = require('connect-flash')
+    //, flash = require('connect-flash')
     , session = require('express-session')
     , config = require('./app/config/config')
     , mongoose = require("mongoose")
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 */
-app.use(flash()); // use connect-flash for flash messages stored in session
+//app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 
@@ -61,12 +61,13 @@ mongoose.connection.on('error',console.log);
 mongoose.connection.on('disconnected',connect);
 
 //bootstrap models
-fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
+/*fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
    if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
-});
+});*/
 //require('./config/passport')(passport);
 
 load("controllers", {cwd: 'app', verbose:true})
+  .then("models", {cwd: 'app', verbose:true})
   .then("routes", {cwd: 'app', verbose:true})
   .into(app);
 
