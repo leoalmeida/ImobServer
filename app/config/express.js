@@ -17,7 +17,7 @@ module.exports = function (app){
  
 // view engine setup
 //app.set('views', path.join(__dirname, 'app/views'));
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
