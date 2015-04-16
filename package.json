@@ -1,7 +1,7 @@
 {
   "name": "ImobCat",
   "description": "ImobCat web site",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "bcryptjs": "~2.1.0",
@@ -17,5 +17,23 @@
     "multer": "~0.1.8",
     "redis": "~0.10.1",
     "fs": "~0.2.0"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leoalmeida/ImobServer.git"
+  },
+  "keywords": [
+    "cadastro"
+  ],
+  "author": "Leonardo Almeida",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leoalmeida/ImobServer/issues"
+  },
+  "homepage": "https://github.com/leoalmeida/ImobServer"
 }

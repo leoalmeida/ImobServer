@@ -11,4 +11,4 @@ var DocumentSchema = new Schema({
     synced: { type: Date, default: Date.now }
 });
 
-mongoose.model('Documents', DocumentSchema);
+mongoose.model('Document', DocumentSchema);

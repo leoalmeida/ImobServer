@@ -14,8 +14,8 @@ var UserSchema = new Schema({
    authToken: { type: String, default: '' },
    profile_pic: {type: String, default: 'blank-profile.png'},
    created: { type: Date, default: Date.now },
-   local:{
-       email: String,
+   local: {
+       user: String,
        password: String
    }
 });
