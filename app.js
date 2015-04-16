@@ -29,14 +29,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // required for passport
-app.use(session({ 
+/*app.use(session({ 
 	secret: 'keepthisstringsecret',
 	resave: true,
 	saveUninitialized: false
 	})
 ); // session secret
-//app.use(passport.initialize());
-//app.use(passport.session()); // persistent login sessions
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+*/
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 
