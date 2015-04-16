@@ -14,7 +14,14 @@ module.exports = function(app){
         return res.send(401); 
       }
       
-      db.userModel.findOne({username: username}, function (err, user) {
+      
+      passport.authenticate('local-login',{
+      	 successRedirect : '/profile', // redirect to the secure profile section
+      	 failureRedirect : '/login', // redirect back to the signup page if there is an error
+      	 failureFlash : true // allow flash messages
+      })
+      
+      /*db.userModel.findOne({username: username}, function (err, user) {
         if (err) {
           console.log(err);
           return res.send(401);
@@ -35,7 +42,7 @@ module.exports = function(app){
           return res.json({token:token});
         });
     
-      });
+      });*/
     },
     
     logout: function(req, res) {
@@ -58,8 +65,14 @@ module.exports = function(app){
       if (username == '' || password == '' || password != passwordConfirmation) {
         return res.send(400);
       }
-    
-      var user = new db.userModel();
+       
+       
+      passport.authenticate('local-signup',{
+        	successRedirect : '/profile', // redirect to the secure profile section
+        	failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        	failureFlash : true // allow flash messages
+      });
+      /*var user = new db.userModel();
       user.username = username;
       user.password = password;
     
@@ -90,7 +103,7 @@ module.exports = function(app){
             return res.send(200);
           }
         });
-      });
+      });*/
     }
   };
   
