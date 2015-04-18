@@ -8,7 +8,7 @@ var express = require('express')
     , csrf = require('csurf')
     , multer = require('multer')
 //var config = require('config')
-    , pkg = require('../package.json');
+    , pkg = require('../../package.json');
 
 
 var env = process.env.NODE_ENV || 'development';

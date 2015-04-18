@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "private": true,
   "dependencies": {
-    "bcryptjs": "~2.1.0",
+    "bcrypt-nodejs": "~0.0.3",
     "body-parser": "~1.0.2",
     "ejs": "^2.3.1",
     "express": "~4.1.1",
@@ -15,8 +15,7 @@
     "mongoose": "~3.8.8",
     "morgan": "~1.0.1",
     "multer": "~0.1.8",
-    "redis": "~0.10.1",
-    "fs": "~0.2.0"
+    "redis": "~0.10.1"
   },
   "main": "app.js",
   "devDependencies": {},

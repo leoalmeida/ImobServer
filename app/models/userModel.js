@@ -40,7 +40,9 @@ UserSchema.virtual('password').set(function(password) {
    this._password = password;
    this.salt = this.makeSalt();
    this.hashed_password = this.encryptPassword(password);
-    }).get(function() { return this._password });
+}).get(function(){
+        return this._password 
+    });
 
 var validatePresenceOf = function (value) {
    return value && value.length;

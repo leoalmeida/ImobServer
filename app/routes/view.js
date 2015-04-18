@@ -1,7 +1,10 @@
-/*
+/*var loginUtil = require('../utils/loginUtil');
+var passport = require('passport');
+
 module.exports = function(app){    
-  var view = app.controllers.view;
+  var home = app.controllers.homeController;
   
   //Login Page ------------------------------------------------
-  app.get('/*', view.index);  
+  app.get('/', home.index);
+  app.get('/login', home.login);  
 };*/

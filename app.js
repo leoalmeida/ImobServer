@@ -60,18 +60,20 @@ connect();
 mongoose.connection.on('error',console.log);
 mongoose.connection.on('disconnected',connect);
 
+ console.log('connected');
+ 
 //bootstrap models
 /*fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
    if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
 });*/
 //require('./config/passport')(passport);
 
-load("controllers", {cwd: 'app', verbose:true})
-  .then("models", {cwd: 'app', verbose:true})
+load("models", {cwd: 'app', verbose:true})
+  .then("controllers", {cwd: 'app', verbose:true})
   .then("routes", {cwd: 'app', verbose:true})
   .into(app);
 
-  require('./config/express')(app);
+  require('./app/config/express')(app);
 
 
 module.exports = app;

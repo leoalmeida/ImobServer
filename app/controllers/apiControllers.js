@@ -1,4 +1,8 @@
-var db = require('../config/mongo_database');
+//var db = require('../config/mongo_database');
+var mongoose = require('mongoose');
+var Publish = mongoose.model('Publish');
+var ObjectId = require('mongoose').Types.ObjectId;
+
 var publicFields = '_id tags type';
     
 module.exports = function(app){    
@@ -15,7 +19,7 @@ module.exports = function(app){
           console.log('Tag name nulo');
         }
       
-        var query = db.pubModel.find({tags: tagName, is_published: true});
+        var query = Publish.find({tags: tagName, is_published: true});
         query.select(publicFields);
         query.sort('-created');
         query.exec(function(err, results) {
@@ -38,7 +42,7 @@ module.exports = function(app){
           return res.send(401);
         }
         
-        var query = db.pubModel.find({is_published: true});
+        var query = Publish.find({is_published: true});
       
         query.sort('-created');
         query.exec(function(err, results) {
@@ -58,7 +62,7 @@ module.exports = function(app){
       
       listAll: function(req, res) {
         
-        var query = db.pubModel.find();
+        var query = Publish.find();
         
         //query.select(publicFields);
         query.sort('-created');
@@ -87,9 +91,12 @@ module.exports = function(app){
         if (id == '') {
           return res.send(400);
         }
-      
-        var query = db.pubModel.findOne({_id: id});
-        query.exec(function(err, result) {
+        id = new ObjectId(req.params.user_id);
+        
+        
+        /*var query = Publish.findOne({_id: id});
+        query.exec(function(err, result) {*/
+        Publish.findById(id,function(err,user){
           if (err) {
               console.log('Erro ao ler:');
               console.log(err);
@@ -119,7 +126,7 @@ module.exports = function(app){
           return res.send(400);
         }
       
-        var postEntry = new db.pubModel();
+        var postEntry = new pub();
         postEntry.type = post.type;
         postEntry.subtype = post.subtype;
         postEntry.title = post.title;	
@@ -180,7 +187,7 @@ module.exports = function(app){
       
         updatePost.updated = new Date();
       
-        db.pubModel.update({_id: post._id}, updatePost, function(err, nbRows, raw) {
+        Publish.update({_id: post._id}, updatePost, function(err, nbRows, raw) {
           return res.send(200);
         });
       },
@@ -195,7 +202,7 @@ module.exports = function(app){
           res.send(400);
         } 
       
-        var query = db.pubModel.findOne({_id:id});
+        var query = Publish.findOne({_id:id});
       
         query.exec(function(err, result) {
           if (err) {
