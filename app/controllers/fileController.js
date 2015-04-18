@@ -1,6 +1,5 @@
 var multer  = require('multer')
-    //, db = require('../config/mongo_database')
-    , config = require('../environment.js')
+    , config = require('../config/config')
     , fs = require('fs');
 
 var mongoose = require('mongoose');
@@ -14,7 +13,7 @@ module.exports = function(app){
   var FilesController = {      
       sendItem: [multer({ 
           includeEmptyFields: true, 
-          dest: config.env.upPath,
+          dest: config.upPath,
           rename: function (fieldname, filename) {
             console.log("Rename");
             return fieldname + filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
@@ -62,7 +61,7 @@ module.exports = function(app){
       }
   ],
   getItem: function(fileid) {
-      fs.readFile(config.env.upPath + fileid,  'base64', function(err,data) {
+      fs.readFile(config.upPath + fileid,  'base64', function(err,data) {
           if (err) {
             return console.log(err);
           }

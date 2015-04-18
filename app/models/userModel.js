@@ -32,7 +32,7 @@ var UserSchema = new Schema({
     bcrypt.hash(user.password, salt, function(err, hash) {
         if (err) return next(err);
         user.password = hash;
-        next();
+        next();compare
     });
 });
 */

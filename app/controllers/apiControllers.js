@@ -1,4 +1,3 @@
-//var db = require('../config/mongo_database');
 var mongoose = require('mongoose');
 var Publish = mongoose.model('Publish');
 var ObjectId = require('mongoose').Types.ObjectId;

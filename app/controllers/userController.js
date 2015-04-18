@@ -1,8 +1,3 @@
-//var db = require('../config/mongo_database');
-//var jwt = require('jsonwebtoken');
-//var secret = require('../config/secret');
-//var tokenManager = require('../config/token_manager');
-
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var ObjectId = require('mongoose').Types.ObjectId;
