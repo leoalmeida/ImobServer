@@ -19,14 +19,21 @@ var fs  = require('fs')
     , app = express();
 
 var port = process.env.PORT || 3001;
+var host = "127.0.0.1";
 
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, '../Uploads')));
-app.use(cookieParser()); // read cookies (needed for auth)
+console.log('host address: ' + host);
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+ 
+
+app.set('views', path.join(__dirname, 'app/views'));
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, '../Uploads')));
+
+app.use(cookieParser()); // read cookies (needed for auth)
+app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({ 
@@ -60,18 +67,19 @@ connect();
 mongoose.connection.on('error',console.log);
 mongoose.connection.on('disconnected',connect);
 console.log('Mongo db connected');
- 
-//bootstrap models
-/*fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
-   if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
-});*/
-//require('./config/passport')(passport);
+
 
 load("models", {cwd: 'app', verbose:true})
   .then("controllers", {cwd: 'app', verbose:true})
   .then("routes", {cwd: 'app', verbose:true})
   .into(app);
 
+
+//bootstrap models
+/*fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
+   if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
+});*/
+require('./app/config/passport')(passport);
 require('./app/config/express')(app);
 
 console.log('connected at port: ' + port);

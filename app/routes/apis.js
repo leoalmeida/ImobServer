@@ -1,8 +1,5 @@
 var loginUtil = require('../utils/loginUtil');
-    //jwt = require('express-jwt')
-    //, secret = require('../config/secret')
-    //, tokenManager = require('../config/token_manager');
-
+ 
 module.exports = function(app){  
   var apiControl = app.controllers.apiControllers;
     

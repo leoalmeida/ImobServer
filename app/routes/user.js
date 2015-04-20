@@ -6,7 +6,8 @@ module.exports = function(app){
   
   
   app.get('/users/', function(req, res) {
-    res.send('respond with a resource');
+      console.log('res: ' + res.body);
+  //  res.send('respond with a resource');    
   });
   
   app.post('/users/create', users.create); //Register 
