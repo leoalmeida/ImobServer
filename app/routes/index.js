@@ -2,7 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-   
+ 
+module.exports = function(app){
+  
+  console.log("passei");
+  
   
   router.get('/', function(req, res) {
     res.render('index', { title: 'teste',path : './' });
@@ -49,4 +53,4 @@ var passport = require('passport');
     res.redirect('/');
   }
   
-module.exports = router;
+};

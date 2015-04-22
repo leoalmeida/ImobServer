@@ -6,6 +6,8 @@ var users = require('../controllers/userController');
 
 var loginUtil = require('../utils/loginUtil'); 
 
+module.exports = function(app){    
+  console.log(users.create);
   router.get('/', function(req, res) {
       console.log('res: ' + res.body);
   //  res.send('respond with a resource');    
@@ -37,4 +39,4 @@ var loginUtil = require('../utils/loginUtil');
     	});
   });*/
   
-module.exports = router;
+};
