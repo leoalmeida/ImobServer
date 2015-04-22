@@ -1,26 +1,26 @@
-var loginUtil = require('../utils/loginUtil');
-    
+var express = require('express');
+var router = express.Router();
+var passport = require('passport');
 
-module.exports = function(app){    
-  var users  = app.controllers.userController;
-  
-  
-  app.get('/users/', function(req, res) {
+var users = require('../controllers/userController');
+
+var loginUtil = require('../utils/loginUtil'); 
+
+  router.get('/', function(req, res) {
       console.log('res: ' + res.body);
   //  res.send('respond with a resource');    
   });
   
-  app.post('/users/create', users.create); //Register 
-  app.get('/users/:id/settings',loginUtil.isLoggedIn,loginUtil.selfLoggedIn,users.getSettings); // Get Settings
-  app.post('/users/:id/settings',loginUtil.isLoggedIn,loginUtil.selfLoggedIn,users.saveSettings); // Change Settings
-  app.post('/users/profile_pic/upload',users.uploadProfilePic); // Change Picture
-  app.get('/users/',users.getAll);
-  app.get('/users/:user_id',users.get);
-  app.put('/users/:user_id',users.update);
-  app.delete('/users/:user_id',users.delete);
+  router.get('/:id/settings',loginUtil.isLoggedIn,loginUtil.selfLoggedIn,users.getSettings); // Get Settings
+  router.post('/:id/settings',loginUtil.isLoggedIn,loginUtil.selfLoggedIn,users.saveSettings); // Change Settings
+  router.post('/profile_pic/upload',users.uploadProfilePic); // Change Picture
+  router.get('/',users.getAll);
+  router.get('/:user_id',users.get);
+  router.put('/:user_id',users.update);
+  router.delete('/:user_id',users.delete);
   
-  app.post('/users/login', users.login); //Login
-  app.get('/users/logout', users.logout); //Logout
+  //app.post('/login', users.login); //Login
+  router.get('/logout', users.logout); //Logout
   
   
 
@@ -36,15 +36,5 @@ module.exports = function(app){
             urlPath : '/profile'
     	});
   });*/
-
-
-  // route middleware to make sure a user is logged in
-  function isLoggedIn(req, res, next) {
-  	  // if user is authenticated in the session, carry on 
-	  if (req.isAuthenticated())
-		  return next();
-	
-	  // if they aren't redirect them to the home page
-	  res.redirect('/login');
-  }
-};
+  
+module.exports = router;

@@ -3,22 +3,22 @@ var User = mongoose.model('User');
 var ObjectId = require('mongoose').Types.ObjectId;
 var fs = require('fs');
 
-module.exports = function(app){    
+module.exports = function(){    
   var UserController = {
-    login:  function(req, res) {
+    login:  function(req, res, next) {
       console.log('res: ' + res.body);
       var username = req.body.username || '';
       var password = req.body.password || '';
            
       if (username == '' || password == '') { 
         return res.send(401); 
-      }
-            
+      }          
+      
       passport.authenticate('local-login',{
       	 successRedirect : '/profile', // redirect to the secure profile section
       	 failureRedirect : '/login', // redirect back to the signup page if there is an error
       	 failureFlash : true // allow flash messages
-      })
+      });
       
       /*db.userModel.findOne({username: username}, function (err, user) {
         if (err) {
@@ -56,15 +56,25 @@ module.exports = function(app){
       }
     },
     
-    create: function(req, res) {
+    create: function(req, res, passport) {
+      console.log("start ");
       var username = req.body.username || '';
       var password = req.body.password || '';
       var passwordConfirmation = req.body.passwordConfirmation || '';
     
-      if (username == '' || password == '' || password != passwordConfirmation) {
+      if (username == '' || password == '' || password != passwordConfirmation) {        
         return res.send(400);
       }
-       
+      console.log("after");
+      
+      
+      /*passport.authenticate('local-signup',{
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+      });*/
+      
+      /*
       var user = new User({
           name:"Leonardo Almeida",
           email:"leoalmeida.rj@gmail.com",
@@ -81,7 +91,7 @@ module.exports = function(app){
           else
              res.json({message: "saved successfully"});
       });
-      
+      */
       /*var user = new db.userModel();
       user.username = username;
       user.password = password;

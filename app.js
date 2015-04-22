@@ -71,7 +71,6 @@ console.log('Mongo db connected');
 
 load("models", {cwd: 'app', verbose:true})
   .then("controllers", {cwd: 'app', verbose:true})
-  .then("routes", {cwd: 'app', verbose:true})
   .into(app);
 
 
@@ -80,8 +79,10 @@ load("models", {cwd: 'app', verbose:true})
    if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
 });*/
 require('./app/config/passport')(passport);
+require('./app/config/routes')(app);
 require('./app/config/express')(app);
 
+  
 console.log('connected at port: ' + port);
 console.log('server started');
  
