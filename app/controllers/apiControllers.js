@@ -4,7 +4,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 var publicFields = '_id tags type';
     
-module.exports = function(app){    
+module.exports = function(app){     
   var ApiControllers = {    
       listByTag: function(req, res) {
         

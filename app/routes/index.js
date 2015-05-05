@@ -2,17 +2,15 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+module.exports = function(app){    
+  //var file  = app.controllers.fileController; 
  
-module.exports = function(app){
-  
-  console.log("passei");
-  
-  
+/* Router Calls */ 
   router.get('/', function(req, res) {
     res.render('index', { title: 'teste',path : './' });
   });
   
-  router.post('/users/create', passport.authenticate('local-signup', { successFlash: 'Welcome!' ,failureFlash: 'Invalid username or password.' })); //Register
+  router.post('/users/create', passport.authenticate('local-signup', { successFlash: 'Welcome!' ,failureFlash: 'Invalid username or password.',successRedirect : '/profile',failureRedirect : '/signup', failureFlash : true  })); //Register
   /*app.post('/create',passport.authenticate('local-signup',{
                             successRedirect : '/profile', // redirect to the secure profile section
                             failureRedirect : '/signup', // redirect back to the signup page if there is an error
@@ -52,5 +50,7 @@ module.exports = function(app){
     // if they aren't redirect them to the home page
     res.redirect('/');
   }
+  
+  return router;
   
 };

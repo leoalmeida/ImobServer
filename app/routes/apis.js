@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-var apiControl = require('../controllers/apiControllers');
+//var apiControl = require('../controllers/apiControllers');
 
 var loginUtil = require('../utils/loginUtil');
  
-module.exports = function(app){  
+module.exports = function(app){
+
+  var apiControl = app.controllers.apiControllers
   
   //app.get('/apis/items', jwt({secret: secret.secretToken}), tokenManager.verifyToken, apiControl.listPublished); //Get all updated items
   router.get('/items', loginUtil.isLoggedIn, apiControl.listPublished); //Get all updated items
@@ -24,4 +26,6 @@ module.exports = function(app){
   
   router.delete('/items', loginUtil.isLoggedIn, apiControl.delete); //Delete all selected items 
   
+  
+  return router;
 };

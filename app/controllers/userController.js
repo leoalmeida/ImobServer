@@ -3,7 +3,7 @@ var User = mongoose.model('User');
 var ObjectId = require('mongoose').Types.ObjectId;
 var fs = require('fs');
 
-module.exports = function(){    
+module.exports = function(app){
   var UserController = {
     login:  function(req, res, next) {
       console.log('res: ' + res.body);
